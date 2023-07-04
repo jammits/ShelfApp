@@ -1,5 +1,7 @@
 package com.coderscampus.ShelfApp.Security.Config;
 
+
+import com.coderscampus.ShelfApp.Repository.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +25,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private TokenRepository tokenRepository;
 
 
 
@@ -31,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //For the jwt authenication token passed via header
+        //For the jwt authentication token passed via header
         final String authHeader = request.getHeader("Authorization");
         final String jwToken;
         final String userEmail;
@@ -50,8 +54,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //Check if user exist and if they exist are they already authenticated
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
+            Boolean tokenIsValid = tokenRepository.findByToken(jwToken)
+                    .map(t -> t.getExpired() != true && t.getRevoked() != true)
+                    .orElse(false);
             //check if token is still valid.
-            if (jwtService.isTokenValid(jwToken, userDetails)) {
+            if (jwtService.isTokenValid(jwToken, userDetails) && tokenIsValid) {
                 //creating new token
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
