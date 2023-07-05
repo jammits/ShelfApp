@@ -2,6 +2,7 @@ package com.coderscampus.ShelfApp.Security.Config;
 
 import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,9 +29,12 @@ public class SpringSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf()
-                .disable() //Cross-site forgery disabled
+                .disable()
+                //Cross-site forgery disabled
                 .authorizeHttpRequests()//Whitelisting pages that can be accessed without authentication and authorization such as registration
                 .requestMatchers("/auth/**")
+                .permitAll()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .permitAll()
                 .anyRequest()
                 .authenticated()

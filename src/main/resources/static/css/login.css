@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: 100vh;
+    min-height: 100%;
+}
+.login-form{
+    display: flex;
+    flex-direction: column; /* stack child elements vertically */
+    align-items: center; /* center horizontally */
+    justify-content: center;
+}
+
+.login-form__buttons {
+    padding-top: 10px;
+}
