@@ -1,7 +1,8 @@
 package com.coderscampus.ShelfApp.Domain;
 
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +15,25 @@ public class Book {
     @Column(name = "book_id")
     private Integer bookId;
     private String title;
+
+    private String subtitle;
     @ElementCollection
     private List<String> author = new ArrayList<>();
     private String publisher;
-    private String description;
 
+    @Lob
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String description;
     @OneToMany(mappedBy = "book")
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToMany(mappedBy = "books")
-    private List<Bookshelf> bookshelves;
+    private List<Bookshelf> bookshelf;
+
+    private String imageLink;
+
+
+
 
     public Integer getBookId() {
         return bookId;
@@ -39,6 +49,14 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public List<String> getAuthor() {
@@ -69,15 +87,23 @@ public class Book {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public void setReviews(Review review) {
+        getReviews().add(review);
     }
 
-    public List<Bookshelf> getBookshelves() {
-        return bookshelves;
+    public List<Bookshelf> getBookshelf() {
+        return bookshelf;
     }
 
-    public void setBookshelves(List<Bookshelf> bookshelves) {
-        this.bookshelves = bookshelves;
+    public void setBookshelf(Bookshelf bookshelf) {
+        getBookshelf().add(bookshelf);
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 }

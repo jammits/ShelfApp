@@ -1,17 +1,12 @@
 package com.coderscampus.ShelfApp.Domain;
 
 
-import com.coderscampus.ShelfApp.DTO.Role;
-import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
+import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "_user")
-public class User implements UserDetails {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,15 +14,12 @@ public class User implements UserDetails {
     private Integer userId;
     private String firstname;
     private String lastname;
-    private String email;
+    @Column(unique = true)
+    private String username;
     private String password;
 
-    //EnumType to String to select between string values
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     @OneToMany(mappedBy = "user")
-    private List<Token> tokens;
+    private Set<Authorities>  authorities = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Friendship> friendships = new HashSet<>();
@@ -35,8 +27,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Bookshelf> bookshelves = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Bookshelf bookshelf;
 
 
     public Integer getUserId() {
@@ -63,28 +56,20 @@ public class User implements UserDetails {
         this.lastname = lastname;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
-    public Role getRole() {
-        return role;
+    public String getPassword() {
+        return password;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public List<Token> getTokens() {
-        return tokens;
-    }
-
-    public void setTokens(List<Token> tokens) {
-        this.tokens = tokens;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Friendship> getFriendships() {
@@ -99,59 +84,23 @@ public class User implements UserDetails {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public void setReviews(Review review) {
+        getReviews().add(review);
     }
 
-    public List<Bookshelf> getBookshelves() {
-        return bookshelves;
+    public Bookshelf getBookshelf() {
+        return bookshelf;
     }
 
-    public void setBookshelves(List<Bookshelf> bookshelves) {
-        this.bookshelves = bookshelves;
+    public void setBookshelf(Bookshelf bookshelf) {
+        this.bookshelf = bookshelf;
     }
 
-    //Return a list of roles
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+    public Set<Authorities> getAuthorities() {
+        return authorities;
     }
 
-    @Override
-    public String getPassword() {
-        return password;
+    public void setAuthorities(Set<Authorities> authorities) {
+        this.authorities = authorities;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-
-
-
 }

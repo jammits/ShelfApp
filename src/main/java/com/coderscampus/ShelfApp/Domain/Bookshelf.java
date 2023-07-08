@@ -1,7 +1,9 @@
 package com.coderscampus.ShelfApp.Domain;
 
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,12 +18,15 @@ public class Bookshelf {
     private String bookshelfName;
 
     @ManyToMany
-    @JoinTable(name = "bookshelves_books",joinColumns = @JoinColumn(name = "bookshelf_id"), inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private List<Book> books;
+    @JoinTable(name = "bookshelf_books", joinColumns = @JoinColumn(name = "bookshelf_id"),inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private List<Book> books = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
+
+
+
 
     public Integer getBookshelfId() {
         return bookshelfId;
@@ -43,8 +48,8 @@ public class Bookshelf {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setBooks(Book book) {
+        getBooks().add(book);
     }
 
     public User getUser() {

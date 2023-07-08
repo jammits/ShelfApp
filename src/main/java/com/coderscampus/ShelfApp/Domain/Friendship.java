@@ -1,6 +1,6 @@
 package com.coderscampus.ShelfApp.Domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "friendships")

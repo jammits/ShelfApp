@@ -1,24 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>ShelfApp</title>
     <link rel="stylesheet" href="/css/login.css" type="text/css">
 </head>
 <body>
-
     <div class="login-form">
-        <h1 class="login-form__banner">Welcome to ShelfApp</h1>
-        <div class="login-form__email">
-        <input type="text" name="Email" placeholder="Enter E-mail">
-        </div>
-        <div class="login-form__password">
-            <input type="password" name="password" placeholder="Enter Password">
-        </div>
-        <div class="login-form__buttons">
-            <input name="login-button"  type="button" value="Sign In">
-            <input name="register-button" type="button" value="Register">
-        </div>
+        <h1>Welcome to ShelfApp</h1>
+        <form action="" method="post">
+            <input id="token" type="hidden" th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}" />
+
+            <div th:if="${param.error != null}">
+                Failed to login.
+                <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+                    Reason: <span th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+                </div>
+            </div>
+
+            <div th:if="${param.logout != null}">You have been logged out.</div>
+            <div class="input-fields">
+                <input type="text" id="username" name="username" placeholder="Enter Username"/>
+
+                <input type="password" id="password" name="password" placeholder="Enter Password"/>
+
+            </div>
+            <div class="error-message" id="error-message" style="color: red;"></div>
+
+            <div class="input-buttons">
+                <div>
+                    <button type="submit" class="btn-submit">Log In</button>
+                </div>
+                <div>
+                    <button type="button" class="btn-register">Sign Up</button>
+                </div>
+            </div>
+        </form>
     </div>
+    <script src="/js/login.js"></script>
 </body>
 </html>

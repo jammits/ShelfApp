@@ -1,0 +1,95 @@
+
+body {
+    font-family: Helvetica;
+    font-size: 22px;
+    color: seashell;
+    background-color: beige;
+    opacity: 0.9;
+    text-align: center;
+}
+
+footer{
+    text-align: left;
+    color: black;
+}
+
+
+/* Navigation bar*/
+
+.banner-logo{
+    height: 69px;
+    width: 100%;
+    position: fixed;
+    border-bottom: 1px solid seashell;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    z-index: 2;
+    top: 0; /* Places header flush with top of page*/
+}
+
+.banner-logo img{
+    height: 50px;
+    margin-left: 10px;
+    display: inline-flex;
+}
+
+.banner-logo li{
+    list-style: none;
+    display: inline-flex;
+    margin-right: 10px;
+    text-decoration: underline;
+}
+
+.banner-logo li a:link{
+    color: grey;
+}
+
+.banner-logo li a:visited{ /* Due to the way featured tea includes a space in the id it doesn't properly identify it after visiting*/
+    color: coral;
+}
+
+.banner-logo li a:hover{
+    color: cadetblue;
+}
+
+.banner-logo li a:active{
+    color: springgreen;
+}
+
+/*Adjusting body to start below header*/
+main{
+    margin-top: 69px;
+    color: black;
+}
+
+.book-authors ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.book-authors li {
+    margin: 0;
+    padding: 0;
+}
+
+.book-reviews{
+    padding-top: 20px;
+}
+
+.book-reviews ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.bookshelf-button {
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+    font-size: 20px;
+}

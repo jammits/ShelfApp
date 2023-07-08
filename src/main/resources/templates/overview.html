@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/overview.css">
+    <title>ShelfApp</title>
+</head>
+<body>
+
+<header>
+    <div class="banner-logo">
+        <img src="/images/ShelfApp-logo/vector/default-monochrome-white.svg" alt="ShelfApp">
+        <nav>
+            <ul>
+                <li class="menu"><a href="#Search">Search</a></li>
+<!--                Link to Book shelf and edit details of yourself-->
+                <li class="menu"><a href="">Bookshelf</a></li>
+                <li class="menu"><a href="">Profile</a></li>
+                <li class="menu"><a href="#Locations">Locations</a></li>
+                <li class="menu">
+                    <form method="post" action="/logout">
+                        <input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button class="button" type="submit">LOGOUT</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <div id="Search">
+            <h2>Search Books By Keywords or Name</h2>
+            <input type="text" placeholder="Keywords / Name" class="search-term">
+            <button class="search-button" type="submit">Search</button>
+        </div>
+    </div>
+    <div class="search-results">
+
+    </div>
+
+    <div id="Locations">
+
+        <div class="location-phrase">
+            <h2>Locations</h2>
+        </div>
+
+        <div class="places">
+            <h3>Downtown</h3>
+            <h4>384 West 5th St SW<br/><br/>Suite 1080<br/><br/>Manhattan, New York</h4>
+        </div>
+        <div class="places">
+            <h3>Bayside</h3>
+            <h4>3433 Phisherman Avenue<br><br>(Northwest Corner)<br><br>Chicago, Illinois</h4>
+        </div>
+        <div class="places">
+            <h3>Oakdale Plaza</h3>
+            <h4>5151 Crescent Avenue<br><br>Second Floor<br><br>Bozeman, Montana</h4>
+        </div>
+    </div>
+
+    <div class="contact">
+        <h2>ShelfApp</h2>
+        <h5>contact@shelfapp.com</h5>
+        <h5>917-555-1234</h5>
+    </div>
+</main>
+
+<footer>
+    <p>ShelfApp 2023</p>
+</footer>
+<script src="/js/overview.js"></script>
+</body>
+</html>

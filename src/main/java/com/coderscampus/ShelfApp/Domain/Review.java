@@ -1,6 +1,6 @@
 package com.coderscampus.ShelfApp.Domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity
@@ -12,7 +12,7 @@ public class Review {
     @Column(name = "review_id")
     private Integer reviewId;
     private Integer reviewStars;
-    private String reviewComment;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -35,14 +35,6 @@ public class Review {
 
     public void setReviewStars(Integer reviewStars) {
         this.reviewStars = reviewStars;
-    }
-
-    public String getReviewComment() {
-        return reviewComment;
-    }
-
-    public void setReviewComment(String reviewComment) {
-        this.reviewComment = reviewComment;
     }
 
     public User getUser() {
