@@ -21,7 +21,7 @@ public class Bookshelf {
     @JoinTable(name = "bookshelf_books", joinColumns = @JoinColumn(name = "bookshelf_id"),inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 

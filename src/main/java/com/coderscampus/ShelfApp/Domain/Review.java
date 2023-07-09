@@ -1,6 +1,7 @@
 package com.coderscampus.ShelfApp.Domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -51,5 +52,18 @@ public class Review {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return Objects.equals(reviewId, review.reviewId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reviewId);
     }
 }

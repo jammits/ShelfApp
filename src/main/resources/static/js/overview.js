@@ -1,12 +1,12 @@
 
-
+var csrfToken = document.querySelector('#token').value
 
 var searchBtn = document.querySelector('.search-button')
 
 searchBtn.addEventListener('click', function () {
 
     var searchTerm = document.querySelector('.search-term').value
-    var csrfToken = document.querySelector('#token').value
+
 
     fetch('/googlebook', {
         method : 'POST',
@@ -151,3 +151,38 @@ searchBtn.addEventListener('click', function () {
 
         })
 })
+
+
+function bookshelf() {
+    fetch('/bookshelf',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+        },
+    })
+        .then(() => window.location.href = '/bookshelf')
+}
+
+
+function profile() {
+    fetch('/profile',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+        },
+    })
+        .then(() => window.location.href = '/profile')
+}
+
+function friends() {
+    fetch('/friends',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+        },
+    })
+        .then(() => window.location.href = '/friends')
+}

@@ -14,7 +14,7 @@ public class AdminService {
     @Autowired
     private UserRepository userRepository;
 
-    @Secured({"ROLE_ADMIN"})
+    @Secured({"ROLE_ADMIN","ROLE_USER"})
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

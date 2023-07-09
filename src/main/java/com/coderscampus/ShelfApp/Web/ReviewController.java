@@ -7,13 +7,13 @@ import com.coderscampus.ShelfApp.Services.BookService;
 import com.coderscampus.ShelfApp.Services.ReviewService;
 import com.coderscampus.ShelfApp.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ReviewController {
@@ -53,5 +53,25 @@ public class ReviewController {
         }
 
         return "redirect:/book/" + bookId;
+    }
+
+
+    @PostMapping("/deletereviews/{bookId}")
+    @ResponseBody
+    public ResponseEntity<Boolean> deleteReviews(@PathVariable String bookId, @AuthenticationPrincipal User user) {
+        User foundUser = userService.findById(user.getUserId());
+        Book currentBook = bookService.findById(Integer.parseInt(bookId));
+
+        Review existingReview = reviewService.findByUserAndBook(foundUser, currentBook);
+        reviewService.deleteReview(existingReview.getReviewId());
+
+        foundUser.getReviews().remove(existingReview);
+        currentBook.getReviews().remove(existingReview);
+        userService.save(foundUser);
+        bookService.save(currentBook);
+
+
+
+        return ResponseEntity.ok(true);
     }
 }

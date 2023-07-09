@@ -62,6 +62,7 @@ public class LoginController {
         authorService.save(auth);
         bookshelfService.save(bookshelf);
 
+
         // If the registration process was successful, return true
         return ResponseEntity.ok(true);
     }

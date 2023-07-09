@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,17 @@ public class BookshelfController {
     @Autowired
     private BookService bookService;
 
+    @GetMapping("/bookshelf")
+    public String getBookshelf(ModelMap model, @AuthenticationPrincipal User user) {
+        Bookshelf bookshelf = bookshelfService.findBookshelf(user.getUserId());
+        model.put("bookshelf", bookshelf);
+        return "bookshelf";
+    }
+
+    @PostMapping("/bookshelf")
+    public String redirectToBookshelf() {
+        return "redirect:/bookshelf";
+    }
 
     @GetMapping("/bookshelf/contains/{bookId}")
     @ResponseBody
@@ -32,7 +44,7 @@ public class BookshelfController {
         return ResponseEntity.ok(containsBook);
     }
 
-    @PostMapping("bookshelf/add/{bookId}")
+    @PostMapping("/bookshelf/add/{bookId}")
     @ResponseBody
     public ResponseEntity<Boolean> addBook(@PathVariable String bookId, @AuthenticationPrincipal User user) {
         Bookshelf bookshelf = bookshelfService.findBookshelf(user.getUserId());

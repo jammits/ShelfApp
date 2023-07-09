@@ -76,24 +76,16 @@ main{
     padding: 0;
 }
 
-.book-reviews{
-    padding-top: 20px;
-}
-
-.book-reviews ul {
-    list-style-type: none;
-    padding: 0;
+.books-grid {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
-.bookshelf-button {
-    display: block;
-    margin: 0 auto;
-    padding: 20px;
-    font-size: 20px;
-}
-
-.delete-reviews-button{
-    margin-bottom: 30px;
+.single-book {
+    margin: 10px;
+    overflow-y: auto;
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
 }

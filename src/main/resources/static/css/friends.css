@@ -64,36 +64,17 @@ main{
     color: black;
 }
 
-.book-authors ul {
-    list-style-type: none;
-    padding: 0;
+
+.friends-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
-.book-authors li {
-    margin: 0;
-    padding: 0;
-}
-
-.book-reviews{
-    padding-top: 20px;
-}
-
-.book-reviews ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.bookshelf-button {
-    display: block;
-    margin: 0 auto;
-    padding: 20px;
-    font-size: 20px;
-}
-
-.delete-reviews-button{
-    margin-bottom: 30px;
+.single-friend {
+    margin: 10px;
+    overflow-y: auto;
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
 }

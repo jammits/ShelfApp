@@ -15,7 +15,8 @@
       <ul>
         <li class="menu"><a onclick="overview()">Search</a></li>
         <li class="menu menu-bookshelf"><a onclick="bookshelf()">Bookshelf</a></li>
-        <li class="menu menu-profile"><a onclick="profile">Profile</a></li>
+        <li class="menu menu-profile"><a onclick="profile()">Profile</a></li>
+        <li class="menu"><a onclick="friends()">Friends</a></li>
         <li class="menu">
           <form method="post" action="/logout">
             <input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
@@ -63,6 +64,8 @@
           <span>Rating</span><p th:text="${review.reviewStars}"></p>
         </li>
       </ul>
+
+      <button class="delete-reviews-button" th:if="${!#lists.isEmpty(book.reviews)}">Delete Review</button>
     </div>
     <input class="book-id" type="hidden" th:field="${book.bookId}">
     <button class="bookshelf-button" id="add-to-bookshelf" style="display: none;">Add to Bookshelf</button>

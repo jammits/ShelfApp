@@ -7,6 +7,8 @@ import com.coderscampus.ShelfApp.Repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class ReviewService {
 
@@ -19,5 +21,10 @@ public class ReviewService {
 
     public Review findByUserAndBook(User foundUser, Book currentBook) {
         return reviewRepository.findByUserAndBook(foundUser, currentBook);
+    }
+
+    @Transactional
+    public void deleteReview(Integer id) {
+        reviewRepository.deleteReviewsByReviewId(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.coderscampus.ShelfApp.Services;
 
 import com.coderscampus.ShelfApp.Domain.User;
+import com.coderscampus.ShelfApp.Repository.BookshelfRepository;
 import com.coderscampus.ShelfApp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,10 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    UserRepository userRepo;
+    private UserRepository userRepo;
+
+    @Autowired
+    private BookshelfRepository bookshelfRepository;
     public User save(User user) {
 
         return userRepo.save(user);

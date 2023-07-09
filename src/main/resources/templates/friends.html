@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/friends.css">
+  <title>ShelfApp</title>
+</head>
+<body>
+
+<header>
+
+  <div class="banner-logo">
+    <img src="/images/ShelfApp-logo/vector/default-monochrome-white.svg" alt="ShelfApp">
+    <nav>
+      <ul>
+        <li class="menu"><a onclick="overview()">Search</a></li>
+        <li class="menu"><a onclick="bookshelf()">Bookshelf</a></li>
+        <li class="menu"><a onclick="profile()">Profile</a></li>
+        <li class="menu">
+          <form method="post" action="/logout">
+            <input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button class="button" type="submit">LOGOUT</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1 th:text="|Hello: ${user.username}|"></h1>
+
+  <div class="friends-container">
+    <div th:if="${not #lists.isEmpty(user.friends)}">
+      <h1>Your Friends:</h1>
+      <div class="single-friend">
+        <div th:each="friend : ${user.friends}">
+          <h2 th:text="${friend.username}"></h2>
+          <h3 th:text="${friend.firstname}"></h3>
+          <p th:text="${friend.userId}"></p>
+        </div>
+      </div>
+    </div>
+
+    <div th:unless="${not #lists.isEmpty(user.friends)}">
+      <h1>You have no friends yet.</h1>
+    </div>
+  </div>
+
+  <div class="adding-friend">
+    <input id="friendId" class="friend-id" type="text" placeholder="Enter Friend Id" name="friendId"/>
+    <button class="button-add-friend" type="submit">Add friend</button>
+  </div>
+
+  <div class="deleting-friend">
+    <input id="friendId-delete" class="friend-id-delete" type="text" placeholder="Enter Friend Id" name="friendId"/>
+    <button class="button-delete-friend" type="submit">Delete</button>
+  </div>
+
+
+
+
+  <div id="message" style="display: none;"></div>
+
+
+
+  <p th:text="|My Friend Id: ${user.userId}|"></p>
+</main>
+
+<footer>
+  <p>ShelfApp 2023</p>
+</footer>
+<script src="/js/friends.js"></script>
+</body>
+</html>

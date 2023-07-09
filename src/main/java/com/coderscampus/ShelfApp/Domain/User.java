@@ -21,14 +21,16 @@ public class User{
     @OneToMany(mappedBy = "user")
     private Set<Authorities>  authorities = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private Set<Friendship> friendships = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "user_friendship", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
+    private Set<User> friends = new HashSet<>();
+
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
 
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bookshelf_id")
     private Bookshelf bookshelf;
 
 
@@ -72,12 +74,12 @@ public class User{
         this.password = password;
     }
 
-    public Set<Friendship> getFriendships() {
-        return friendships;
+    public Set<User> getFriends() {
+        return friends;
     }
 
-    public void setFriendships(Set<Friendship> friendships) {
-        this.friendships = friendships;
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
     }
 
     public List<Review> getReviews() {

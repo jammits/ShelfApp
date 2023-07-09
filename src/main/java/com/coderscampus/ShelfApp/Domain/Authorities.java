@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Entity
 public class Authorities implements GrantedAuthority {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer authorId;
